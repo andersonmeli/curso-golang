@@ -1,0 +1,52 @@
+package main
+
+import "fmt"
+
+type imprimivel interface {
+	toString() string
+}
+
+type pessoa struct {
+	nome string
+	sobrenome string
+}
+
+type produto struct {
+	nome string
+	preco float64
+}
+
+//Interface são implementadas implicitamete
+func (p pessoa) toString() string {
+	return p.nome + " " + p.sobrenome
+}
+
+func (p produto) toString() string {
+	return fmt.Sprintf("%s - R$ %.2f", p.nome, p.preco)
+}
+
+func imprimir(x imprimivel) {
+	fmt.Println(x.toString())
+}
+
+func main() {
+	var coisa imprimivel = pessoa{
+		nome:      "Roberto",
+		sobrenome: "Silva",
+	}
+	fmt.Println(coisa.toString())
+	imprimir(coisa)
+	
+	coisa = produto{
+		nome:  "Produto01",
+		preco: 55.5,
+	}
+	fmt.Println(coisa.toString())
+	imprimir(coisa)
+
+	p2 := produto{
+		nome:  "Produto02",
+		preco: 105.5,
+	}
+	imprimir(p2)
+}
